@@ -1,6 +1,6 @@
 package com.catan.democatanserver.json;
 
-import com.catan.democatanserver.catan.Resource;
+import com.catan.democatanserver.catan.map.Resource;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

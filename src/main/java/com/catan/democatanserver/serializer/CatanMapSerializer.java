@@ -1,6 +1,6 @@
 package com.catan.democatanserver.serializer;
 
-import com.catan.democatanserver.catan.CatanMap;
+import com.catan.democatanserver.catan.map.CatanMap;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;

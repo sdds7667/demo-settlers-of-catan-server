@@ -1,4 +1,4 @@
-package com.catan.democatanserver.catan;
+package com.catan.democatanserver.catan.map;
 
 public enum Resource {
     Wheat,
