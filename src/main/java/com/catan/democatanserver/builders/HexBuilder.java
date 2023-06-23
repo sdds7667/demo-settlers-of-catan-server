@@ -8,9 +8,9 @@ public interface HexBuilder {
 
     void reset();
 
-    void setCorner(int index, HexCorner corner);
+    HexBuilder setCorner(int index, HexCorner corner);
 
-    void setEdge(int index, HexEdge edge);
+    HexBuilder setEdge(int index, HexEdge edge);
 
     Hex getHex();
 }

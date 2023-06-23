@@ -6,11 +6,13 @@ import com.catan.democatanserver.catan.map.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public abstract class BaseHexBuilder implements HexBuilder {
     Logger logger;
 
+    protected UUID id;
     protected Resource resource;
     protected List<HexCorner> corners;
     protected List<HexEdge> edges;
@@ -24,6 +26,7 @@ public abstract class BaseHexBuilder implements HexBuilder {
     @Override
     public void reset() {
         resource = null;
+        id = UUID.randomUUID();
         if (corners == null) {
             corners = new ArrayList<>();
             for (int i = 0; i < 6; i++)
@@ -41,19 +44,21 @@ public abstract class BaseHexBuilder implements HexBuilder {
     }
 
     @Override
-    public void setCorner(int index, HexCorner corner) {
+    public BaseHexBuilder setCorner(int index, HexCorner corner) {
         if (index < 0 || index > 5) throw new IllegalArgumentException("Corner index must be between 0 and 5");
         if (corner == null) throw new IllegalArgumentException("Corner cannot be null");
         if (corners.get(index) != null) logger.warning("Overwriting corner " + index);
         corners.set(index, corner);
+        return this;
     }
 
     @Override
-    public void setEdge(int edgeIndex, HexEdge edge) {
+    public BaseHexBuilder setEdge(int edgeIndex, HexEdge edge) {
         if (edgeIndex < 0 || edgeIndex > 5) throw new IllegalArgumentException("Edge index must be between 0 and 5");
         if (edge == null) throw new IllegalArgumentException("Corner cannot be null");
         if (edges.get(edgeIndex) != null) logger.warning("Overwriting edge " + edgeIndex);
         edges.set(edgeIndex, edge);
+        return this;
     }
 
     public boolean isCornerSet(int index) {
@@ -76,13 +81,24 @@ public abstract class BaseHexBuilder implements HexBuilder {
         return edges.get(index);
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public BaseHexBuilder setId(UUID id) {
+        if (id == null) throw new IllegalArgumentException("Id cannot be null");
+        this.id = id;
+        return this;
+    }
+
     public Resource getResource() {
         return resource;
     }
 
-    public void setResource(Resource resource) {
+    public BaseHexBuilder setResource(Resource resource) {
         if (resource == null) throw new IllegalArgumentException("Resource cannot be null");
         this.resource = resource;
+        return this;
     }
 
 
