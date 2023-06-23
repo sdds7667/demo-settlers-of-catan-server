@@ -16,19 +16,21 @@ public class Hex extends Identifiable {
     private List<HexCorner> corners;
     private List<HexEdge> edges;
 
-    public Hex(Resource resource) {
+    public Hex(Resource resource, List<HexCorner> corners, List<HexEdge> edges) {
         this.resource = resource;
-        this.corners = new ArrayList<>();
-        this.edges = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            this.corners.add(null);
-            this.edges.add(null);
-        }
+        this.corners = corners;
+        this.edges = edges;
     }
 
     public Resource getResource() {
         return resource;
     }
 
+    public List<HexCorner> getCorners() {
+        return corners;
+    }
 
+    public List<HexEdge> getEdges() {
+        return edges;
+    }
 }

@@ -5,7 +5,8 @@ import com.catan.democatanserver.catan.map.hex.Hex;
 import com.catan.democatanserver.catan.map.Resource;
 import com.catan.democatanserver.catan.map.hex.WaterHex;
 
-public class WaterHexBuilder implements HexBuilder {
+public class WaterHexBuilder extends BaseHexBuilder {
+
 
     private Harbor harbor;
 
@@ -26,6 +27,6 @@ public class WaterHexBuilder implements HexBuilder {
     @Override
     public Hex getHex() {
         if (harbor == null) throw new IllegalStateException("Harbor cannot be null");
-        return new WaterHex(harbor);
+        return new WaterHex(harbor, corners, edges);
     }
 }

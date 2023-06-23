@@ -12,7 +12,8 @@ public class CatanMap extends Identifiable {
 
     private Map<Position, Hex> hexes;
 
-    public CatanMap() {
-        hexes = new HashMap<>();
+    public CatanMap(Map<Position, Hex> hexes) {
+        this.hexes = hexes;
     }
+
 }

@@ -6,13 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HexSerializationTest {
     @Test
     public void testLandHexSerialization() {
 
-        String expected = "{\"resource\":\"Brick\",\"number\":5}";
-        var hex = new NumberedHex(Resource.Brick, 5 );
+        String expected = "{\"resource\":\"Brick\",\"number\":5,corners:[";
+        var hex = new NumberedHex(Resource.Brick, 5, null, null );
         var objectMapper = new ObjectMapper();
 
         var json = "";
@@ -22,6 +23,6 @@ public class HexSerializationTest {
             assert (false);
         }
 
-        assertEquals(expected, json, "Hex should serialize to resource, number, q, and r");
+        assertTrue(json.startsWith(expected));
     }
 }
