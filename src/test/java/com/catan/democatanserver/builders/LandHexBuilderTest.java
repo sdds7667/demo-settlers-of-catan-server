@@ -3,11 +3,8 @@ package com.catan.democatanserver.builders;
 import com.catan.democatanserver.catan.map.HexCorner;
 import com.catan.democatanserver.catan.map.HexEdge;
 import com.catan.democatanserver.catan.map.Resource;
-import com.catan.democatanserver.catan.map.hex.Hex;
 import com.catan.democatanserver.catan.map.hex.NumberedHex;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
-import org.junit.jupiter.params.ParameterizedTest;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,10 +31,62 @@ class LandHexBuilderTest {
         }
         var hex = builder.getHex();
 
-        var expected = new NumberedHex(id, resource, number, corners, edges);
+        if (!(hex instanceof NumberedHex)) {
+            fail("Hex is not a NumberedHex");
+        }
+        var numberedHex = (NumberedHex) hex;
 
-        assertEquals(expected, hex);
+        assertEquals(numberedHex.getId(), id);
+        assertEquals(numberedHex.getNumber(), number);
+        assertEquals(numberedHex.getResource(), resource);
+        for (var i = 0; i < 6; i++) {
+            assertEquals(numberedHex.getCorners().get(i).getId(), corners.get(i).getId());
+            assertEquals(numberedHex.getEdges().get(i).getId(), edges.get(i).getId());
+        }
     }
 
+    @Test
+    public void testDesertBuilder() {
+        var id = UUID.randomUUID();
+        var builder = new LandHexBuilder()
+                .setResource(Resource.Desert)
+                .setId(id);
+        var hex = builder.getHex();
+
+        if (hex instanceof NumberedHex) {
+            fail("Hex is a NumberedHex");
+        }
+
+        assertEquals(hex.getId(), id);
+        assertEquals(hex.getResource(), Resource.Desert);
+        assertEquals(hex.getCorners().size(), 6);
+        assertEquals(hex.getEdges().size(), 6);
+    }
+
+    @Test
+    public void numberOnDesert() {
+        assertThrows(IllegalArgumentException.class, () -> new LandHexBuilder().setResource(Resource.Desert).setNumber(5));
+        assertThrows(IllegalArgumentException.class, () -> new LandHexBuilder().setNumber(5).setResource(Resource.Desert));
+    }
+
+    @Test
+    public void numberOutsideBounds() {
+        assertThrows(IllegalArgumentException.class, () -> new LandHexBuilder().setNumber(1));
+        assertThrows(IllegalArgumentException.class, () -> new LandHexBuilder().setNumber(0));
+        assertThrows(IllegalArgumentException.class, () -> new LandHexBuilder().setNumber(13));
+        assertThrows(IllegalArgumentException.class, () -> new LandHexBuilder().setNumber(14));
+    }
+
+    @Test
+    public void waterCannotBeSet() {
+        assertThrows(IllegalArgumentException.class, () -> new LandHexBuilder().setResource(Resource.Water));
+    }
+
+    @Test
+    public void everythingNeedsToBeSet() {
+        assertThrows(IllegalStateException.class, () -> new LandHexBuilder().getHex());
+        assertThrows(IllegalStateException.class, () -> new LandHexBuilder().setResource(Resource.Brick).getHex());
+        assertThrows(IllegalStateException.class, () -> new LandHexBuilder().setNumber(5).getHex());
+    }
 
 }

@@ -4,8 +4,6 @@ import com.catan.democatanserver.catan.map.Resource;
 import com.catan.democatanserver.catan.map.hex.Hex;
 import com.catan.democatanserver.catan.map.hex.NumberedHex;
 
-import java.util.UUID;
-
 public class LandHexBuilder extends BaseHexBuilder {
 
 
@@ -41,14 +39,13 @@ public class LandHexBuilder extends BaseHexBuilder {
     }
 
 
-
     @Override
     public Hex getHex() {
         if (resource == null) throw new IllegalStateException("Resource must be set");
-        if (number == -1) throw new IllegalStateException("Number must be set");
-        if (resource == Resource.Desert) {
+        if (resource == Resource.Desert)
             return new Hex(id, resource, corners, edges);
-        }
+        if (number == -1) throw new IllegalStateException("Number must be set");
         return new NumberedHex(id, resource, number, corners, edges);
     }
+
 }

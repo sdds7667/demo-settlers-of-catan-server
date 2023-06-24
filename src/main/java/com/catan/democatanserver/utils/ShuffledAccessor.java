@@ -9,13 +9,13 @@ import static java.util.Collections.shuffle;
 
 public class ShuffledAccessor<T> implements Iterable<T> {
 
-    Integer[] shuffledIndices;
+    int[] shuffledIndices;
     T[] original;
 
     public ShuffledAccessor(T[] array) {
 
         original = array;
-        shuffledIndices = new Integer[array.length];
+        shuffledIndices = new int[array.length];
         for (int i = 0; i < array.length; i++)
             shuffledIndices[i] = i;
         for (int i = 0; i < array.length; i++) {

@@ -67,7 +67,7 @@ public class HexUtils {
             public Position next() {
                 var position = originalPosition;
                 originalPosition = originalPosition.neighbor(i + 2);
-                if (j == radius-1) {
+                if (j == radius - 1) {
                     i++;
                     j = 0;
                 } else {
