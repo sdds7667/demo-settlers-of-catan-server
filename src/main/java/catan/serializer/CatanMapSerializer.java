@@ -1,6 +1,6 @@
-package com.catan.democatanserver.serializer;
+package catan.serializer;
 
-import com.catan.democatanserver.catan.CatanMap;
+import catan.map.CatanMap;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
@@ -20,5 +20,7 @@ public class CatanMapSerializer extends StdSerializer<CatanMap> {
     @Override
     public void serialize(CatanMap value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         gen.writeStartObject();
+
+        gen.writeEndArray();
     }
 }
